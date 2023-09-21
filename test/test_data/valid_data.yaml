@@ -1,0 +1,11 @@
+cellannotation_schema_version: v21092023
+cellannotation_timestamp: 09/09/23 04:34:22 +0000
+cellannotation_version: v1
+cellannotation_url: http://my_url
+author_name: Test User
+
+labelset:
+  - cellannotation_setname: set1
+    cell_label: label1
+  - cellannotation_setname: set2
+    cell_label: label2

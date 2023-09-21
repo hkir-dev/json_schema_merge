@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Cell Annotation Open Standard Extension",
+  "description": "Extension",
+  "type": "object",
+  "definitions": {
+    "Annotation": {
+      "type": "object",
+      "description": "extension annotations",
+      "required": [
+        "cellannotation_setname",
+        "cell_label",
+        "custom_prop"
+      ],
+      "properties": {
+        "custom_prop": {
+          "description": "my custom property.",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

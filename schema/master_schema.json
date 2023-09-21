@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Cell Annotation Open Standard Extension",
+  "description": "Extension",
+  "type": "object",
+
+  "allOf": [
+    {
+      "$ref": "file:///Users/hk9/workspaces/workspace1/json_schema_merge/schema/extension_schema.json"
+    },
+    {
+      "$ref": "/Users/hk9/workspaces/workspace1/json_schema_merge/schema/general_schema.json"
+    }
+  ]
+
+}
