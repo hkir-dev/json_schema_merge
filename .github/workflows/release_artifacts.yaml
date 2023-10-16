@@ -14,15 +14,6 @@ jobs:
         run: echo ${{ github.sha }} > Release.txt
       - name: Test
         run: cat Release.txt
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: Release.txt
-          asset_name: Release.txt
-          asset_content_type: application/octet-stream
       - name: Upload Release Asset2
         uses: actions/upload-release-asset@v1
         env:
@@ -31,4 +22,13 @@ jobs:
           upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./README.md
           asset_name: README.md
+          asset_content_type: application/octet-stream
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: Release.txt
+          asset_name: Release.txt
           asset_content_type: application/octet-stream
