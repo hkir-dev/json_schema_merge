@@ -9,7 +9,7 @@ on:
 
 jobs:
   tag:
-    name: Tag
+    name: Snapshot build
     runs-on: ubuntu-latest
     steps:
       - name: Get current date
@@ -28,8 +28,8 @@ jobs:
       - name: Make Snapshot
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "Release.txt,README.md"
-          body: "Nightly snapshot release.Draft only, please use a stable release instead."
+          artifacts: "requirements.txt,Release.txt"
+          body: "Nightly snapshot release. Draft only, please use a stable release instead."
           allowUpdates: true
           draft: true
           makeLatest: false
