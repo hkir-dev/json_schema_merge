@@ -3,6 +3,7 @@ name: Nightly Snapshot
 on:
   schedule:
   - cron: "*/10 * * * *"
+
 #  - cron: "59 23 * * *"
   workflow_dispatch:
 
@@ -14,14 +15,24 @@ jobs:
       - name: Get current date
         id: date
         run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
       - name: Checkout branch "master"
         uses: actions/checkout@v3
-      - uses: ncipollo/release-action@v1
+
+      - name: Build
+        run: echo ${{ steps.date.outputs.date }} > Release.txt
+
+      - name: Test
+        run: cat Release.txt
+
+      - name: Make Snapshot
+        uses: ncipollo/release-action@v1
         with:
-          body: "Nightly snapshot ${{ steps.date.outputs.date }}"
+          artifacts: "Release.txt,README.txt"
+          body: "Nightly snapshot release draft."
           allowUpdates: true
           draft: true
           makeLatest: false
-          name: "SNAPSHOT-Release"
+          name: "${{ steps.date.outputs.date }} SNAPSHOT"
           tag: "snapshot"
           removeArtifacts: true
