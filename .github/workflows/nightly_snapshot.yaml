@@ -28,11 +28,10 @@ jobs:
       - name: Make Snapshot
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "Release.txt,README.txt"
-          body: "Nightly snapshot release draft."
+          artifacts: "Release.txt,README.md"
+          body: "Nightly snapshot release. Drat only, please use a stable release instead."
           allowUpdates: true
           draft: true
           makeLatest: false
           name: "${{ steps.date.outputs.date }} SNAPSHOT"
-          tag: "snapshot"
           removeArtifacts: true
