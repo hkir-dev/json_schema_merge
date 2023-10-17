@@ -2,7 +2,7 @@ name: Nightly Snapshot
 
 on:
   schedule:
-  - cron: "*/10 * * * *"
+  - cron: "*/5 * * * *"
 #  - cron: "59 23 * * *"
 
 jobs:
@@ -21,5 +21,6 @@ jobs:
           allowUpdates: true
           draft: true
           makeLatest: false
-          name: SNAPSHOT-Release
+          name: "SNAPSHOT-Release"
+          tag: "snapshot"
           removeArtifacts: true
