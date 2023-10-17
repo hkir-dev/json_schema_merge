@@ -2,7 +2,7 @@ name: Nightly Snapshot
 
 on:
   schedule:
-  - cron: "*/5 * * * *"
+  - cron: "*/10 * * * *"
 #  - cron: "59 23 * * *"
 
 jobs:
@@ -12,9 +12,9 @@ jobs:
     steps:
       - name: Get current date
         id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
       - name: Checkout branch "master"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - uses: ncipollo/release-action@v1
         with:
           body: "Nightly snapshot ${{ steps.date.outputs.date }}"
