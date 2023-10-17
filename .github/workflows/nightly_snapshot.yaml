@@ -29,9 +29,10 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "Release.txt,README.md"
-          body: "Nightly snapshot release. Drat only, please use a stable release instead."
+          body: "Nightly snapshot release.Draft only, please use a stable release instead."
           allowUpdates: true
           draft: true
           makeLatest: false
           name: "${{ steps.date.outputs.date }} SNAPSHOT"
           removeArtifacts: true
+          tag: "snapshot"
