@@ -1,0 +1,58 @@
+name: 'Rolls merged schemas and schema documentations on Pull Requests'
+
+on:
+  issue_comment:
+    types: [created]
+
+env:
+  DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    if: ${{ github.event.issue.pull_request }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ '3.9' ]
+    steps:
+      - uses: khan/pull-request-comment-trigger@v1.1.0
+        id: check
+        with:
+          trigger: '#rollschema'
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+
+      - uses: xt0rted/pull-request-comment-branch@v1
+        id: comment-branch
+
+      - name: Checkout Repository
+        if: steps.check.outputs.triggered == 'true'
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ steps.comment-branch.outputs.head_ref }}
+          fetch-depth: 0
+
+      - name: Set up Python ${{ matrix.python-version }}
+        if: steps.check.outputs.triggered == 'true'
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        if: steps.check.outputs.triggered == 'true'
+        run: pip install -r requirements.txt
+
+#      - name: Release assets generation
+#        if: steps.check.outputs.triggered == 'true'
+#        run: |
+#          python src/cas_schema/schema_manager.py
+
+      - name: Upload artefacts
+        if: steps.check.outputs.triggered == 'true'
+        uses: actions/upload-artifact@v2
+        with:
+          name: schemas
+          path: |
+            schema/extension_schema.json
+            README.md
