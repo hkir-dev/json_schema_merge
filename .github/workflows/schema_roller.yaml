@@ -1,6 +1,8 @@
-name: 'Rolls merged schemas and schema documentations on Pull Requests'
+name: 'Schema Roller'
 
 on:
+  pull_request:
+    types: [opened]
   issue_comment:
     types: [created]
 
@@ -9,7 +11,7 @@ env:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build:
+  roll_schema:
     if: ${{ github.event.issue.pull_request }}
     runs-on: ubuntu-latest
     strategy:
@@ -55,4 +57,4 @@ jobs:
           name: schemas
           path: |
             schema/extension_schema.json
-            README.md
+            schema/general_schema.json
