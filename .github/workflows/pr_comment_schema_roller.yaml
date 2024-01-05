@@ -46,6 +46,20 @@ jobs:
           echo "Head sha: $HEAD_SHA"
           echo "HEAD_SHA=$HEAD_SHA" >> "$GITHUB_ENV"
 
+      - name: Download workflow artifact
+        uses: dawidd6/action-download-artifact@v2.11.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          workflow: schema_roller.yaml
+          run_id: ${{ github.event.workflow_run.id }}
+
+      - name: Read the pr_num file
+        id: pr_num_reader
+        uses: juliangruber/read-file-action@v1.0.0
+        with:
+          path: ./pr_num/pr_num.txt
+
+
       - name: Schema Files Comment
         env:
           JOB_PATH: "${{ github.server_url }}/${{ github.repository }}/actions/\
@@ -53,7 +67,8 @@ jobs:
           HEAD_SHA: ${{ env.HEAD_SHA }}
         uses: peter-evans/create-or-update-comment@v2
         with:
-          issue-number: ${{ env.PR_NUMBER }}
+#          issue-number: ${{ env.PR_NUMBER }}
+          issue-number: ${{ steps.pr_num_reader.outputs.content }}
           body: |-
             Schema files are at ${{ env. ARTIFACT_URL }}
 
