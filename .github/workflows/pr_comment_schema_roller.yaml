@@ -58,15 +58,27 @@ jobs:
           workflow: schema_roller.yaml
           run_id: ${{ github.event.workflow_run.id }}
 
+#      - name: Read the pr_num file
+#        id: pr_num_reader
+#        uses: juliangruber/read-file-action@v1.0.0
+#        with:
+#          path: ./pr_num/pr_num.txt
+
       - name: Read the pr_num file
         id: pr_num_reader
-        uses: juliangruber/read-file-action@v1.0.0
+        uses: actions/upload-artifact@v2
         with:
-          path: ./pr_num/pr_num.txt
+          name: pr_num
+          path: ./pr_num.txt
+
+      - name: Set pr_num variables
+        run: |
+          PR_NUM=$(cat ./pr_num.txt)
+          echo "PR_NUM=$PR_NUM" >> $GITHUB_ENV
 
       - name: Echo Artifact URL & PR Info
         run: |
-          echo "content: ${{ steps.pr_num_reader.outputs.content }}"
+          echo "content: ${{ env.PR_NUM }}"
           echo "art1: ${{ env.ARTIFACT_URL_1 }}"
           echo "art2: ${{ env. ARTIFACT_URL_2 }}"
 
