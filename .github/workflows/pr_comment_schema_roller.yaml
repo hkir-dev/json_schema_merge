@@ -90,21 +90,24 @@ jobs:
           echo "art1: ${{ env.ARTIFACT_URL_1 }}"
           echo "art2: ${{ env. ARTIFACT_URL_2 }}"
 
-      - name: Schema Files Comment
-        env:
-          JOB_PATH: "${{ github.server_url }}/${{ github.repository }}/actions/\
-              runs/${{ env.PREVIOUS_JOB_ID }}"
-          HEAD_SHA: ${{ env.HEAD_SHA }}
-        uses: peter-evans/create-or-update-comment@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          issue-number: ${{ env.PR_NUM }}
-#          issue-number: ${{ steps.pr_num_reader.outputs.content }}
-          body: |-
-            Schemas: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ env.PREVIOUS_JOB_ID }}/artifacts/${{ env.ARTIFACT_1_ID }}
+#      - name: Schema Files Comment
+#        env:
+#          JOB_PATH: "${{ github.server_url }}/${{ github.repository }}/actions/\
+#              runs/${{ env.PREVIOUS_JOB_ID }}"
+#          HEAD_SHA: ${{ env.HEAD_SHA }}
+#        uses: peter-evans/create-or-update-comment@v3
+#        with:
+#          token: ${{ secrets.GITHUB_TOKEN }}
+#          issue-number: ${{ env.PR_NUM }}
+##          issue-number: ${{ steps.pr_num_reader.outputs.content }}
+#          body: |-
+#            You can download merged schemas from [schemas.zip](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ env.PREVIOUS_JOB_ID }}/artifacts/${{ env.ARTIFACT_1_ID }})
+
+      - name: Prepare download links comment
+        run: "echo \"You can download merged schemas from [schemas.zip](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ env.PREVIOUS_JOB_ID }}/artifacts/${{ env.ARTIFACT_1_ID }})\" >schema-comment.md"
 
       - name: Prepare BICAN schema doc comment
-        run: "echo \"Schema documentations: \n<details>\n <summary> BICAN schema </summary> \n\" > schema-comment.md; cat schema/extension_schema.md >>schema-comment.md"
+        run: "echo \"Schema documentations: \n<details>\n <summary> BICAN schema </summary> \n\" >> schema-comment.md; cat schema/extension_schema.md >>schema-comment.md"
 
       - name: Prepare CAP schema doc comment
         run: "echo \"\n</details>\n\n<details>\n <summary> CAP schema </summary> \n\" >> schema-comment.md; cat schema/general_schema.md >>schema-comment.md"
