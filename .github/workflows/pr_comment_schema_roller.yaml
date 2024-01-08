@@ -32,10 +32,10 @@ jobs:
             .archive_download_url")
           
           echo "ARTIFACT URL: $ARTIFACT_URL"
-          ARTIFACT_URL_1=${ARTIFACT_URL%$'\n'*}
+          ARTIFACT_URL_1="$(echo $ARTIFACT_URL | cut -d'\n' -f1)"
           echo "ARTIFACT URL 1: $ARTIFACT_URL_1"
           echo "ARTIFACT_URL_1=$ARTIFACT_URL_1" >> "$GITHUB_ENV"
-          ARTIFACT_URL_2=${ARTIFACT_URL%*'\n'$}
+          ARTIFACT_URL_2="$(echo $ARTIFACT_URL | cut -d'\n' -f2)"
           echo "ARTIFACT URL 2: $ARTIFACT_URL_2"
           echo "ARTIFACT_URL_2=$ARTIFACT_URL_2" >> "$GITHUB_ENV"
           
