@@ -73,8 +73,9 @@ jobs:
 
       - name: Set pr_num variables
         run: |
+          cat pr_num/pr_num.txt 
           PR_NUM=$(cat pr_num/pr_num.txt)
-          echo "$PR_NUM"
+          echo "PR_NUM: $PR_NUM"
           echo "PR_NUM=$PR_NUM" >> "$GITHUB_ENV"
 
       - name: Echo Artifact URL & PR Info
