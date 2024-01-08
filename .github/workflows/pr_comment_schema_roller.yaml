@@ -41,9 +41,9 @@ jobs:
           ARTIFACT_2_ID="$(echo "$ARTIFACT_URL_2" | cut -d'/' -f9)"
           
           echo "ARTIFACT URL 1: $ARTIFACT_URL_1"
-          echo "ARTIFACT_1_ID=ARTIFACT_1_ID" >> "$GITHUB_ENV"
+          echo "ARTIFACT_1_ID=$ARTIFACT_1_ID" >> "$GITHUB_ENV"
           echo "ARTIFACT URL 2: $ARTIFACT_URL_2"
-          echo "ARTIFACT_2_ID=ARTIFACT_2_ID" >> "$GITHUB_ENV"
+          echo "ARTIFACT_2_ID=$ARTIFACT_2_ID" >> "$GITHUB_ENV"
           
           PR_NUMBER=$(jq -r '.pull_requests[0].number' \
             <<< "$WORKFLOW_RUN_EVENT_OBJ")
