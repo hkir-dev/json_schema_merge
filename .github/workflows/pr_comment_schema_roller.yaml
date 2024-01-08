@@ -91,8 +91,8 @@ jobs:
           HEAD_SHA: ${{ env.HEAD_SHA }}
         uses: peter-evans/create-or-update-comment@v2
         with:
-#          issue-number: ${{ env.PR_NUMBER }}
-          issue-number: ${{ steps.pr_num_reader.outputs.content }}
+          issue-number: ${{ env.PR_NUMBER }}
+#          issue-number: ${{ steps.pr_num_reader.outputs.content }}
           body: |-
             Schema files are at ${{ env. ARTIFACT_URL_1 }}
 
