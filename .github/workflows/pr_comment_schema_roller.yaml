@@ -34,7 +34,7 @@ jobs:
             .archive_download_url")
           
           echo "ARTIFACT URL: $ARTIFACT_URL"
-          ARTIFACT_URLS="$(echo "$input" | tr '\n' '@')"
+          ARTIFACT_URLS="$(echo "$ARTIFACT_URL" | tr '\n' '@')"
           ARTIFACT_URL_1="$(echo "$ARTIFACT_URLS" | cut -d'@' -f1)"
           ARTIFACT_1_ID="$(echo "$ARTIFACT_URL_1" | cut -d'/' -f9)"
           ARTIFACT_URL_2="$(echo "$ARTIFACT_URLS" | cut -d'@' -f2)"
@@ -101,7 +101,7 @@ jobs:
           issue-number: ${{ env.PR_NUM }}
 #          issue-number: ${{ steps.pr_num_reader.outputs.content }}
           body: |-
-            [schemas.zip](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ env.PREVIOUS_JOB_ID }}/artifacts/${{ env.ARTIFACT_1_ID }})
+            Schemas: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ env.PREVIOUS_JOB_ID }}/artifacts/${{ env.ARTIFACT_1_ID }}
 
       - name: Prepare BICAN schema doc comment
         run: "echo \"Schema documentations: \n<details>\n <summary> BICAN schema </summary> \n\" > schema-comment.md; cat schema/extension_schema.md >>schema-comment.md"
