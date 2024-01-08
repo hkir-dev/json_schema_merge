@@ -98,11 +98,9 @@ jobs:
             Schema files are at ${{ env. ARTIFACT_URL_1 }}
 
       - name: Prepare BICAN schema doc comment
-        if: steps.check.outputs.triggered == 'true'
         run: "echo \"Schema documentations: \n<details>\n <summary> BICAN schema </summary> \n\" > schema-comment.md; cat schema/extension_schema.md >>schema-comment.md"
 
       - name: Prepare CAP schema doc comment
-        if: steps.check.outputs.triggered == 'true'
         run: "echo \"\n</details>\n\n<details>\n <summary> CAP schema </summary> \n\" >> schema-comment.md; cat schema/general_schema.md >>schema-comment.md"
 
       - name: Schema Docs Comment
