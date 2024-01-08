@@ -32,7 +32,6 @@ jobs:
             .archive_download_url")
           
           echo "ARTIFACT URL: $ARTIFACT_URL"
-#          echo "ARTIFACT_URL=$ARTIFACT_URL" >> "$GITHUB_ENV"
           ARTIFACT_URL_1=${ARTIFACT_URL%$'\n'*}
           echo "ARTIFACT URL 1: $ARTIFACT_URL_1"
           echo "ARTIFACT_URL_1=$ARTIFACT_URL_1" >> "$GITHUB_ENV"
