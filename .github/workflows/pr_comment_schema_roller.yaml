@@ -104,13 +104,13 @@ jobs:
 #            You can download merged schemas from [schemas.zip](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ env.PREVIOUS_JOB_ID }}/artifacts/${{ env.ARTIFACT_1_ID }})
 
       - name: Prepare download links comment
-        run: "echo \"You can download merged schemas from [schemas.zip](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ env.PREVIOUS_JOB_ID }}/artifacts/${{ env.ARTIFACT_1_ID }})\" >schema-comment.md"
+        run: "echo \"Merged schema files: [schemas.zip](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ env.PREVIOUS_JOB_ID }}/artifacts/${{ env.ARTIFACT_1_ID }})\" >schema-comment.md"
 
       - name: Prepare BICAN schema doc comment
-        run: "echo \"Schema documentations: \n<details>\n <summary> BICAN schema </summary> \n\" >> schema-comment.md; cat schema/extension_schema.md >>schema-comment.md"
+        run: "echo \"\n<details>\n <summary> BICAN schema documentation</summary> \n\" >> schema-comment.md; cat schema/extension_schema.md >>schema-comment.md"
 
       - name: Prepare CAP schema doc comment
-        run: "echo \"\n</details>\n\n<details>\n <summary> CAP schema </summary> \n\" >> schema-comment.md; cat schema/general_schema.md >>schema-comment.md"
+        run: "echo \"\n</details>\n\n<details>\n <summary> CAP schema documentation</summary> \n\" >> schema-comment.md; cat schema/general_schema.md >>schema-comment.md"
 
       - name: Schema Docs Comment
         env:
