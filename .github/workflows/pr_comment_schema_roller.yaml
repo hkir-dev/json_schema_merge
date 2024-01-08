@@ -64,6 +64,11 @@ jobs:
         with:
           path: ./pr_num/pr_num.txt
 
+      - name: Echo Artifact URL & PR Info
+        run: |
+          echo "content: ${{ steps.pr_num_reader.outputs.content }}"
+          echo "art1: ${{ env.ARTIFACT_URL_1 }}"
+          echo "art2: ${{ env. ARTIFACT_URL_2 }}"
 
       - name: Schema Files Comment
         env:
