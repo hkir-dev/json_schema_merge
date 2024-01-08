@@ -64,16 +64,16 @@ jobs:
 #        with:
 #          path: ./pr_num/pr_num.txt
 
-      - name: Read the pr_num file
-        id: pr_num_reader
-        uses: actions/download-artifact@v2
-        with:
-          name: pr_num
-          path: ./pr_num.txt
+#      - name: Read the pr_num file
+#        id: pr_num_reader
+#        uses: actions/download-artifact@v2
+#        with:
+#          name: pr_num
+#          path: ./pr_num.txt
 
       - name: Set pr_num variables
         run: |
-          PR_NUM=$(cat ./pr_num.txt)
+          PR_NUM=$(cat pr_num/pr_num.txt)
           echo "PR_NUM=$PR_NUM" >> $GITHUB_ENV
 
       - name: Echo Artifact URL & PR Info
