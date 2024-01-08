@@ -59,9 +59,13 @@ jobs:
 
       - name: Save the PR number in an artifact
         shell: bash
-        env:
-          PR_NUM: ${{ github.event.number }}
-        run: echo $PR_NUM > pr_num.txt
+#        env:
+#          PR_NUM: ${{ github.event.number }}
+        run: |
+          PR_URL="${{ github.event.issue.pull_request.url }}"
+          PR_NUM=${PR_URL##*/}
+          echo "PR_NUM: $PR_NUM"
+          echo $PR_NUM > pr_num.txt
 
       - name: Upload the PR number
         uses: actions/upload-artifact@v2
