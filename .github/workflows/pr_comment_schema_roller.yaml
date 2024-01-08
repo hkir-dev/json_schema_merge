@@ -34,12 +34,16 @@ jobs:
             .archive_download_url")
           
           echo "ARTIFACT URL: $ARTIFACT_URL"
-          ARTIFACT_URL_1="$(echo $ARTIFACT_URL | head --lines 1)"
+          ARTIFACT_URLS="$(echo "$input" | tr '\n' '@')"
+          ARTIFACT_URL_1="$(echo "ARTIFACT_URLS" | cut -d'@' -f1)"
+          ARTIFACT_1_ID="$(echo "ARTIFACT_URL_1" | cut -d'/' -f9)"
+          ARTIFACT_URL_2="$(echo "ARTIFACT_URLS" | cut -d'@' -f2)"
+          ARTIFACT_2_ID="$(echo "ARTIFACT_URL_2" | cut -d'/' -f9)"
+          
           echo "ARTIFACT URL 1: $ARTIFACT_URL_1"
-          echo "ARTIFACT_URL_1=$ARTIFACT_URL_1" >> "$GITHUB_ENV"
-          ARTIFACT_URL_2="$(echo $ARTIFACT_URL | tail --lines 1)"
+          echo "ARTIFACT_1_ID=ARTIFACT_1_ID" >> "$GITHUB_ENV"
           echo "ARTIFACT URL 2: $ARTIFACT_URL_2"
-          echo "ARTIFACT_URL_2=$ARTIFACT_URL_2" >> "$GITHUB_ENV"
+          echo "ARTIFACT_2_ID=ARTIFACT_2_ID" >> "$GITHUB_ENV"
           
           PR_NUMBER=$(jq -r '.pull_requests[0].number' \
             <<< "$WORKFLOW_RUN_EVENT_OBJ")
@@ -97,7 +101,7 @@ jobs:
           issue-number: ${{ env.PR_NUM }}
 #          issue-number: ${{ steps.pr_num_reader.outputs.content }}
           body: |-
-            Schema files are at ${{ env. ARTIFACT_URL_1 }}
+            Schema files are at ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ env.PREVIOUS_JOB_ID }}/artifacts/${{ env.ARTIFACT_1_ID }}
 
       - name: Prepare BICAN schema doc comment
         run: "echo \"Schema documentations: \n<details>\n <summary> BICAN schema </summary> \n\" > schema-comment.md; cat schema/extension_schema.md >>schema-comment.md"
