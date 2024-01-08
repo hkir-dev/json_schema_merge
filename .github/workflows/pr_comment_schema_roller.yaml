@@ -32,10 +32,10 @@ jobs:
             .archive_download_url")
           
           echo "ARTIFACT URL: $ARTIFACT_URL"
-          ARTIFACT_URL_1="$(echo $ARTIFACT_URL | cut -d'\n' -f1)"
+          ARTIFACT_URL_1="$(echo $ARTIFACT_URL | head --lines 1)"
           echo "ARTIFACT URL 1: $ARTIFACT_URL_1"
           echo "ARTIFACT_URL_1=$ARTIFACT_URL_1" >> "$GITHUB_ENV"
-          ARTIFACT_URL_2="$(echo $ARTIFACT_URL | cut -d'\n' -f2)"
+          ARTIFACT_URL_2="$(echo $ARTIFACT_URL | tail --lines 1)"
           echo "ARTIFACT URL 2: $ARTIFACT_URL_2"
           echo "ARTIFACT_URL_2=$ARTIFACT_URL_2" >> "$GITHUB_ENV"
           
@@ -75,7 +75,7 @@ jobs:
 #          issue-number: ${{ env.PR_NUMBER }}
           issue-number: ${{ steps.pr_num_reader.outputs.content }}
           body: |-
-            Schema files are at ${{ env. ARTIFACT_URL }}
+            Schema files are at ${{ env. ARTIFACT_URL_1 }}
 
       - name: Prepare BICAN schema doc comment
         if: steps.check.outputs.triggered == 'true'
