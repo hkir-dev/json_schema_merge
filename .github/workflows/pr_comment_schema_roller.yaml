@@ -66,7 +66,7 @@ jobs:
 
       - name: Read the pr_num file
         id: pr_num_reader
-        uses: actions/upload-artifact@v2
+        uses: actions/download-artifact@v2
         with:
           name: pr_num
           path: ./pr_num.txt
